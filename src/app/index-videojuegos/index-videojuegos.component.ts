@@ -1,7 +1,9 @@
 import {AfterViewInit, Component, ViewChild, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import { MatIcon } from '@angular/material/icon';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 
 export interface UserData {
   id: string;
@@ -52,13 +54,13 @@ const NAMES: string[] = [
 })
 export class IndexVideojuegosComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit'];
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit','actions'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator :any = MatPaginator;
   @ViewChild(MatSort) sort: any =  MatSort;
 
-   constructor() {
+   constructor(private router: Router) {
     // Create 100 users
     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -97,6 +99,14 @@ export class IndexVideojuegosComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  agregarVideojuego(): void{
+    this.router.navigateByUrl('/videojuegos/nuevo');
+  }
+
+  editVideojuego(id:number): void{
+    this.router.navigateByUrl('/videojuegos/nuevo/'+id);
   }
 
 }
